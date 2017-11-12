@@ -23,8 +23,8 @@ data_train_loader = DataLoader(data_train, batch_size=1024, shuffle=True, num_wo
 data_test_loader = DataLoader(data_test, batch_size=1024, num_workers=8)
 
 net = LeNet5()
-criterion = nn.NLLLoss()
-optimizer = optim.SGD(net.parameters(), lr=0.1)
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.Adam(net.parameters(), lr=2e-3)
 
 
 def train(epoch):
