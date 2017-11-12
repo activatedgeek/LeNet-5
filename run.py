@@ -58,11 +58,13 @@ def test():
     print('Test Avg. Loss: %f, Accuracy: %f' % (avg_loss.data[0], float(total_correct) / len(data_test)))
 
 
-def main():
-    for e in range(1, 11):
-        train(e)
-
+def train_and_test(epoch):
+    train(epoch)
     test()
+
+def main():
+    for e in range(1, 16):
+        train_and_test(e)
 
 
 if __name__ == '__main__':

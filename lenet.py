@@ -1,5 +1,6 @@
 import torch.nn as nn
 import torch.nn.functional as F
+from collections import OrderedDict
 
 
 class LeNet5(nn.Module):
@@ -19,26 +20,27 @@ class LeNet5(nn.Module):
     def __init__(self):
         super(LeNet5, self).__init__()
 
-        self.c1 = nn.Conv2d(1, 6, kernel_size=(5, 5))
-        self.s2 = nn.AvgPool2d(kernel_size=(2, 2), stride=2)
-        self.c3 = nn.Conv2d(6, 16, kernel_size=(5, 5))
-        self.s4 = nn.AvgPool2d(kernel_size=(2, 2), stride=2)
-        self.c5 = nn.Conv2d(16, 120, kernel_size=(5, 5))
-        self.f6 = nn.Linear(120, 84)
-        self.f7 = nn.Linear(84, 10)
+        self.convnet = nn.Sequential(OrderedDict([
+            ('c1', nn.Conv2d(1, 6, kernel_size=(5, 5))),
+            ('r1', nn.ReLU()),
+            ('s2', nn.AvgPool2d(kernel_size=(2, 2), stride=2)),
+            ('c3', nn.Conv2d(6, 16, kernel_size=(5, 5))),
+            ('r3', nn.ReLU()),
+            ('s4', nn.AvgPool2d(kernel_size=(2, 2), stride=2)),
+            ('c5', nn.Conv2d(16, 120, kernel_size=(5, 5))),
+            ('r5', nn.ReLU())
+        ]))
+
+        self.fc = nn.Sequential(OrderedDict([
+            ('f6', nn.Linear(120, 84)),
+            ('r6', nn.ReLU()),
+            ('f7', nn.Linear(84, 10))
+        ]))
 
     def forward(self, input):
-        output = self.c1(input)
-        output = F.tanh(output)
-        output = self.s2(output)
-        output = self.c3(output)
-        output = F.tanh(output)
-        output = self.s4(output)
-        output = self.c5(output)
+        output = self.convnet(input)
         output = output.view(-1, 120)
-        output = self.f6(output)
-        output = F.tanh(output)
-        output = self.f7(output)
+        output = self.fc(output)
         output = F.log_softmax(output)
         return output
 
