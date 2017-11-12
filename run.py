@@ -18,11 +18,10 @@ def main():
 
     net = LeNet5()
     criterion = nn.NLLLoss()
-    optimizer = optim.SGD(net.parameters(), lr=2e-3)
+    optimizer = optim.SGD(net.parameters(), lr=0.1)
 
     for e in range(10):
-        for i, samples in enumerate(data_train_loader):
-            images, labels = samples
+        for i, (images, labels) in enumerate(data_train_loader):
             images, labels = Variable(images), Variable(labels)
 
             optimizer.zero_grad()

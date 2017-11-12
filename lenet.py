@@ -39,7 +39,7 @@ class LeNet5(nn.Module):
         output = self.f6(output)
         output = F.tanh(output)
         output = self.f7(output)
-        output = F.softmax(output)
+        output = F.log_softmax(output)
         return output
 
 
