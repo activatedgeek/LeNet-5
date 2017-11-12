@@ -37,7 +37,8 @@ def train(epoch):
         output = net(images)
 
         loss = criterion(output, labels)
-        print('Train - Epoch %d, Batch: %d, Loss: %f' % (epoch, i, loss.data[0]))
+        if i % 10 == 0:
+            print('Train - Epoch %d, Batch: %d, Loss: %f' % (epoch, i, loss.data[0]))
 
         loss.backward()
         optimizer.step()

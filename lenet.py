@@ -22,26 +22,26 @@ class LeNet5(nn.Module):
 
         self.convnet = nn.Sequential(OrderedDict([
             ('c1', nn.Conv2d(1, 6, kernel_size=(5, 5))),
-            ('r1', nn.ReLU()),
+            ('relu1', nn.ReLU()),
             ('s2', nn.MaxPool2d(kernel_size=(2, 2), stride=2)),
             ('c3', nn.Conv2d(6, 16, kernel_size=(5, 5))),
-            ('r3', nn.ReLU()),
+            ('relu3', nn.ReLU()),
             ('s4', nn.MaxPool2d(kernel_size=(2, 2), stride=2)),
             ('c5', nn.Conv2d(16, 120, kernel_size=(5, 5))),
-            ('r5', nn.ReLU())
+            ('relu5', nn.ReLU())
         ]))
 
         self.fc = nn.Sequential(OrderedDict([
             ('f6', nn.Linear(120, 84)),
-            ('r6', nn.ReLU()),
-            ('f7', nn.Linear(84, 10))
+            ('relu6', nn.ReLU()),
+            ('f7', nn.Linear(84, 10)),
+            ('sig7', nn.LogSoftmax())
         ]))
 
     def forward(self, input):
         output = self.convnet(input)
         output = output.view(-1, 120)
         output = self.fc(output)
-        output = F.log_softmax(output)
         return output
 
 
