@@ -1,7 +1,6 @@
 from lenet import LeNet5
 import torch.nn as nn
 import torch.optim as optim
-import torch.functional as F
 from torch.autograd import Variable
 from torchvision.datasets.mnist import MNIST
 import torchvision.transforms as transforms
