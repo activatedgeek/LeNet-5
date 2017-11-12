@@ -24,7 +24,11 @@ def main():
         for i, samples in enumerate(data_train_loader):
             images, labels = samples
             images, labels = Variable(images), Variable(labels)
+
+            optimizer.zero_grad()
+
             output = net(images)
+
             loss = criterion(output, labels)
             print('Epoch %d, Batch: %d, Loss: %f' % (e, i, loss.data[0]))
 
