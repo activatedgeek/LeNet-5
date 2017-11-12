@@ -19,7 +19,7 @@ data_test = MNIST('./data/mnist',
                        transforms.Scale((32, 32)),
                        transforms.ToTensor(),
                    ]))
-data_train_loader = DataLoader(data_train, batch_size=1024, shuffle=True, num_workers=8)
+data_train_loader = DataLoader(data_train, batch_size=256, shuffle=True, num_workers=8)
 data_test_loader = DataLoader(data_test, batch_size=1024, num_workers=8)
 
 net = LeNet5()
