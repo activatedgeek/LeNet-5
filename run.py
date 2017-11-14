@@ -6,19 +6,17 @@ from torchvision.datasets.mnist import MNIST
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 
-data_train = MNIST('./data/mnist',
+data_train = MNIST('~/pytorch_data/mnist',
                    download=True,
                    transform=transforms.Compose([
                        transforms.Scale((32, 32)),
-                       transforms.ToTensor(),
-                   ]))
-data_test = MNIST('./data/mnist',
-                   train=False,
-                   download=True,
-                   transform=transforms.Compose([
-                       transforms.Scale((32, 32)),
-                       transforms.ToTensor(),
-                   ]))
+                       transforms.ToTensor()]))
+data_test = MNIST('~/pytorch_data/mnist',
+                  train=False,
+                  download=True,
+                  transform=transforms.Compose([
+                      transforms.Scale((32, 32)),
+                      transforms.ToTensor()]))
 data_train_loader = DataLoader(data_train, batch_size=256, shuffle=True, num_workers=8)
 data_test_loader = DataLoader(data_test, batch_size=1024, num_workers=8)
 
@@ -62,6 +60,7 @@ def test():
 def train_and_test(epoch):
     train(epoch)
     test()
+
 
 def main():
     for e in range(1, 16):

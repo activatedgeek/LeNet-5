@@ -1,5 +1,4 @@
 import torch.nn as nn
-import torch.nn.functional as F
 from collections import OrderedDict
 
 
@@ -38,10 +37,8 @@ class LeNet5(nn.Module):
             ('sig7', nn.LogSoftmax())
         ]))
 
-    def forward(self, input):
-        output = self.convnet(input)
+    def forward(self, img):
+        output = self.convnet(img)
         output = output.view(-1, 120)
         output = self.fc(output)
         return output
-
-
