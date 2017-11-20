@@ -2,6 +2,9 @@
 
 This implements a slightly modified LeNet-5 [LeCun et al., 1998a] and achieves an accuracy of ~99% on the [MNIST dataset](http://yann.lecun.com/exdb/mnist/).
 
+
+![Epoch Train Loss visualization](https://i.imgur.com/h4h7CrF.gif)
+
 ## Setup
 
 Install all dependencies using the following command
