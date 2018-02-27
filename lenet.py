@@ -4,7 +4,7 @@ from collections import OrderedDict
 
 class LeNet5(nn.Module):
     """
-    Input - 1x28x28
+    Input - 1x32x32
     C1 - 6@28x28 (5x5 kernel)
     tanh
     S2 - 6@14x14 (2x2 kernel, stride 2) Subsampling
