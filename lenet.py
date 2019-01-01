@@ -34,11 +34,11 @@ class LeNet5(nn.Module):
             ('f6', nn.Linear(120, 84)),
             ('relu6', nn.ReLU()),
             ('f7', nn.Linear(84, 10)),
-            ('sig7', nn.LogSoftmax())
+            ('sig7', nn.LogSoftmax(dim=-1))
         ]))
 
     def forward(self, img):
         output = self.convnet(img)
-        output = output.view(-1, 120)
+        output = output.view(img.size(0), -1)
         output = self.fc(output)
         return output
