@@ -19,26 +19,38 @@ class LeNet5(nn.Module):
     def __init__(self):
         super(LeNet5, self).__init__()
 
-        self.convnet = nn.Sequential(OrderedDict([
+        self.c1 = nn.Sequential(OrderedDict([
             ('c1', nn.Conv2d(1, 6, kernel_size=(5, 5))),
             ('relu1', nn.ReLU()),
-            ('s2', nn.MaxPool2d(kernel_size=(2, 2), stride=2)),
-            ('c3', nn.Conv2d(6, 16, kernel_size=(5, 5))),
-            ('relu3', nn.ReLU()),
-            ('s4', nn.MaxPool2d(kernel_size=(2, 2), stride=2)),
-            ('c5', nn.Conv2d(16, 120, kernel_size=(5, 5))),
-            ('relu5', nn.ReLU())
+            ('s1', nn.MaxPool2d(kernel_size=(2, 2), stride=2))
         ]))
 
-        self.fc = nn.Sequential(OrderedDict([
-            ('f6', nn.Linear(120, 84)),
-            ('relu6', nn.ReLU()),
-            ('f7', nn.Linear(84, 10)),
-            ('sig7', nn.LogSoftmax(dim=-1))
+        self.c2 = nn.Sequential(OrderedDict([
+            ('c2', nn.Conv2d(6, 16, kernel_size=(5, 5))),
+            ('relu2', nn.ReLU()),
+            ('s2', nn.MaxPool2d(kernel_size=(2, 2), stride=2))
+        ]))
+
+        self.c3 = nn.Sequential(OrderedDict([
+            ('c3', nn.Conv2d(16, 120, kernel_size=(5, 5))),
+            ('relu3', nn.ReLU())
+        ]))
+
+        self.f4 = nn.Sequential(OrderedDict([
+            ('f4', nn.Linear(120, 84)),
+            ('relu4', nn.ReLU())
+        ]))
+
+        self.f5 = nn.Sequential(OrderedDict([
+            ('f5', nn.Linear(84, 10)),
+            ('sig5', nn.LogSoftmax(dim=-1))
         ]))
 
     def forward(self, img):
-        output = self.convnet(img)
+        output = self.c1(img)
+        output = self.c2(output)
+        output = self.c3(output)
         output = output.view(img.size(0), -1)
-        output = self.fc(output)
+        output = self.f4(output)
+        output = self.f5(output)
         return output
