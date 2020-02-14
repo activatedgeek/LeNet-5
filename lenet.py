@@ -83,14 +83,20 @@ class LeNet5(nn.Module):
         super(LeNet5, self).__init__()
 
         self.c1 = C1()
-        self.c2 = C2() 
+        self.c2_1 = C2() 
+        self.c2_2 = C2() 
         self.c3 = C3() 
         self.f4 = F4() 
         self.f5 = F5() 
 
     def forward(self, img):
         output = self.c1(img)
-        output = self.c2(output)
+
+        x = self.c2_1(output)
+        output = self.c2_2(output)
+
+        output += x
+
         output = self.c3(output)
         output = output.view(img.size(0), -1)
         output = self.f4(output)
