@@ -2,3 +2,4 @@ numpy~=1.15.0
 torch~=1.0.0
 torchvision~=0.2.0
 visdom~=0.1.0
+Pillow==6.1
