@@ -92,7 +92,7 @@ def train_and_test(epoch):
 
 
 def main():
-    for e in range(1, 3):
+    for e in range(1, 16):
         train_and_test(e)
 
 
