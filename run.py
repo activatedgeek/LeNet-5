@@ -6,6 +6,7 @@ from torchvision.datasets.mnist import MNIST
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 import visdom
+import onnx
 
 viz = visdom.Visdom()
 
@@ -82,6 +83,12 @@ def test():
 def train_and_test(epoch):
     train(epoch)
     test()
+
+    dummy_input = torch.randn(1, 1, 32, 32, requires_grad=True)
+    torch.onnx.export(net, dummy_input, "lenet.onnx")
+
+    onnx_model = onnx.load("lenet.onnx")
+    onnx.checker.check_model(onnx_model)
 
 
 def main():
